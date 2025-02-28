@@ -169,12 +169,11 @@ def configure_logging(
         dsn = None
         ignore_errors = [KeyboardInterrupt]
         if isinstance(sentry_config, dict):
-            dsn = sentry_config.get('dsn', None)
-            traces_sample_rate = sentry_config.get('traces_sample_rate', 1.0)
+            dsn = sentry_config.pop('dsn', None)
+            traces_sample_rate = sentry_config.pop('traces_sample_rate', 1.0)
         if dsn:
-            extra_kwargs = {}
             if release:
-                extra_kwargs['release'] = release
+                sentry_config['release'] = release
             sentry_sdk.init(
                 dsn=dsn,
                 # Set traces_sample_rate to 1.0 to capture 100%
@@ -184,7 +183,7 @@ def configure_logging(
                 debug=debug,
                 environment=environment,
                 ignore_errors=ignore_errors,
-                **extra_kwargs,
+                **sentry_config,
             )
 
 
