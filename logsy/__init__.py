@@ -48,6 +48,7 @@ def configure_logging(
     async_fluent: bool=True,
     environment: str=None,
     debug: bool=False,
+    staging: bool=False,
     release: str=None,
     level: Union[str, int]=logging.INFO,
     sentry_config: dict=None,
@@ -69,6 +70,13 @@ def configure_logging(
     if not async_fluent:
         fluent_handler_class = 'fluent.handler.FluentHandler'
 
+    if not environment:
+        if debug:
+            environment = 'debug'
+        elif staging:
+            environment = 'staging'
+        else:
+            environment = 'production'
 
     #############
     # FORMATTERS
