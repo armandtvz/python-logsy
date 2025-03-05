@@ -52,6 +52,7 @@ def configure_logging(
     release: str=None,
     level: Union[str, int]=logging.INFO,
     sentry_config: dict=None,
+    disable_sentry: bool=False,
     replace_config: bool=False,
 ):
     if fluent_port:
@@ -173,7 +174,7 @@ def configure_logging(
     #########
     # SENTRY
     #########
-    if USE_SENTRY and sentry_config:
+    if USE_SENTRY and sentry_config and not disable_sentry:
         dsn = None
         ignore_errors = [KeyboardInterrupt]
         if isinstance(sentry_config, dict):
