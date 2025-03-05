@@ -9,7 +9,7 @@ from typing import Union
 
 from fluent_formatter import ISO8601FluentRecordFormatter
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 HOSTNAME = gethostname()
 USE_FLUENT = False
 USE_SENTRY = False
